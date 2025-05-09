@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout } from 'antd';
+import { Layout, ConfigProvider } from 'antd';
 import LoginForm from './components/LoginForm';
 import ChatRoom from './components/ChatRoom';
 import './App.css';
@@ -25,15 +25,23 @@ function App() {
     };
 
     return (
-        <Layout>
-            <Content>
-                {currentUser ? (
-                    <ChatRoom currentUser={currentUser} />
-                ) : (
-                    <LoginForm onLogin={onLogin} />
-                )}
-            </Content>
-        </Layout>
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#1890ff',
+                },
+            }}
+        >
+            <Layout style={{ height: '100vh' }}>
+                <Content>
+                    {currentUser ? (
+                        <ChatRoom currentUser={currentUser} />
+                    ) : (
+                        <LoginForm onLogin={onLogin} />
+                    )}
+                </Content>
+            </Layout>
+        </ConfigProvider>
     );
 }
 
