@@ -1,0 +1,145 @@
+.chat-container {
+  max-width: 800px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  text-align: center;
+  padding: 15px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.message-list {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message-form {
+  border-top: 1px solid #e8e8e8;
+  padding: 20px;
+}
+
+.login-page {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 350px;
+}
+
+.login-title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.chat-message {
+  margin-bottom: 16px;
+}
+
+.chat-message .message-content {
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: inline-block;
+  max-width: 70%;
+}
+
+.chat-message.own-message {
+  text-align: right;
+}
+
+.user-join, .user-leave {
+  text-align: center;
+  margin: 10px 0;
+  color: #777;
+}
+
+.chat-dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  border-right: 1px solid #e8e8e8;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+}
+
+.chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-section {
+  padding: 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.room-list, .user-list {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.room-item, .user-item {
+  padding: 8px 12px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.room-item:hover, .user-item:hover {
+  background-color: #e6f7ff;
+}
+
+.room-item.active, .user-item.active {
+  background-color: #1890ff;
+  color: white;
+}
+
+.private-chat-indicator {
+  font-size: 12px;
+  margin-left: 5px;
+  color: #999;
+}
+
+.chat-rooms-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-tabs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-tabs-content {
+  height: 100%;
+}
+
+.private-message .message-content {
+  background-color: #ffd6e7 !important;
+}
