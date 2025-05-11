@@ -3,24 +3,52 @@ package io.github.enessaidtatli.model;
 /**
  * @author etatli on 9.05.2025 15:24
  */
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.github.enessaidtatli.config.audit.Audit;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Data
+import java.time.LocalDateTime;
+
+@Entity(name = "chat_message")
+@Table(name = "t_chat_message", indexes = {
+        @Index(name = "idx_chat_sender_id", columnList = "sender_id"),
+        @Index(name = "idx_chat_receiver_id", columnList = "receiver_id")
+})
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class ChatMessage {
-    private MessageType type;
+@SuperBuilder
+public class ChatMessage extends Audit {
+
+    @OneToOne
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender;
+
+    @OneToOne
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private User receiver;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id", nullable = false) // try this -> referencedColumnName = "id"
+    private Room room;
+
+    @Column(nullable = false)
+    @Size(min = 1, max = 256)
     private String content;
-    private String sender;
-    private String time;
-    private String roomId;
-    private String receiver;  // birebir sohbet için alıcı
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private MessageType type;
+
+    private LocalDateTime time = LocalDateTime.now();
 
     public enum MessageType {
-        CHAT, JOIN, LEAVE, PRIVATE
+        CHAT,
+        JOIN,
+        LEAVE,
+        PRIVATE
     }
+
 }

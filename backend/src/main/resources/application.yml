@@ -1,5 +1,45 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/api/v1"
+
+debug: true
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#               SPRING
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 spring:
   application:
     name: Chat Application
-server:
-  port: 8080
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#               DATABASE
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/chat-app
+    username: chat-app
+    password: chat-app-pass
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 50
+      #connection-init-sql:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#               LOGGING
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+logging:
+  level:
+    org.hibernate.sql: trace
+    #org.hibernate.jpa: trace
+    #org.springframework.security: trace

@@ -1,29 +1,36 @@
 package io.github.enessaidtatli.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import io.github.enessaidtatli.config.audit.Audit;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
-@Data
+@Entity(name = "room")
+@Table(name = "t_room")
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Room {
-    private String id;
-    private String name;
-    private String creator;
-    private Set<String> users;
+@SuperBuilder
+public class Room extends Audit {
 
-    public Room(String name, String creator) {
-        this.id = UUID.randomUUID().toString();
-        this.name = name;
-        this.creator = creator;
-        this.users = new HashSet<>();
-        this.users.add(creator);
-    }
+    @Column
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User creator;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_room",
+            joinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id")
+    )
+    private List<User> users;
+
+    @OneToMany(mappedBy = "room")
+    private List<ChatMessage> messages;
+
 }
