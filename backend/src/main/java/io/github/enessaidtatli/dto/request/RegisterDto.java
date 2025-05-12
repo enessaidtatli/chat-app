@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
@@ -45,6 +46,7 @@ public class RegisterDto {
             @Size(min = 3, message = ""),
             @Size(max = 20, message = "")
     })
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     private final String email;
 
     @NotNull

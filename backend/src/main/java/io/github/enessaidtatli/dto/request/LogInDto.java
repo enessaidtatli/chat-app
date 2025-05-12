@@ -17,6 +17,7 @@ public class LogInDto {
             @Size(min = 3, message = ""),
             @Size(max = 20, message = "")
     })
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
     private final String email;
     @NotNull
     @NotBlank
@@ -24,7 +25,7 @@ public class LogInDto {
             @Size(min = 8, message = ""),
             @Size(max = 30, message = "")
     })
-    @Pattern(regexp = "")
+    @Pattern(regexp = "^(?=.{8,30}$)(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-=[\\]{};':\"\\\\|,.<>/?]).*$")
     private final String password;
 
 }

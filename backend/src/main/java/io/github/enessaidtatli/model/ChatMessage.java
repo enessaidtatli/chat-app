@@ -30,8 +30,9 @@ public class ChatMessage extends Audit {
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
+    // Is this necessary to hold room_id in the t_chat_messages ?
     @ManyToOne
-    @JoinColumn(name = "room_id", nullable = false) // try this -> referencedColumnName = "id"
+    @JoinColumn(name = "room_id", nullable = false, referencedColumnName = "id") // try this -> referencedColumnName = "id"
     private Room room;
 
     @Column(nullable = false)

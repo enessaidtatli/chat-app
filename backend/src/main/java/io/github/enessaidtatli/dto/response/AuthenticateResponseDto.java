@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-@Builder
 public class AuthenticateResponseDto {
 
     private String message;

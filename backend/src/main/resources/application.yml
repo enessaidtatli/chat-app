@@ -43,3 +43,11 @@ logging:
     org.hibernate.sql: trace
     #org.hibernate.jpa: trace
     #org.springframework.security: trace
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                 JWT
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+jwt:
+  expiration: 86400000
+  secret: ab132465d9a790e65703d12648bf966e794ff51ce576dd6252a97592640accc7

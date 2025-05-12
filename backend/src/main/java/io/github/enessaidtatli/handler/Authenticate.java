@@ -3,6 +3,7 @@ package io.github.enessaidtatli.handler;
 import io.github.enessaidtatli.dto.request.LogInDto;
 import io.github.enessaidtatli.config.usecase.NoUseCaseHandler;
 import io.github.enessaidtatli.config.usecase.ObservablePublisher;
+import io.github.enessaidtatli.dto.response.AuthenticateResponseDto;
 import io.github.enessaidtatli.exception.SourceNotFoundException;
 import io.github.enessaidtatli.model.User;
 import io.github.enessaidtatli.repository.UserRepository;
@@ -23,7 +24,7 @@ import java.util.Optional;
 @Slf4j
 @Component
 @Validated
-public class Authenticate extends ObservablePublisher implements NoUseCaseHandler<String, LogInDto> {
+public class Authenticate extends ObservablePublisher implements NoUseCaseHandler<AuthenticateResponseDto, LogInDto> {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
@@ -32,16 +33,16 @@ public class Authenticate extends ObservablePublisher implements NoUseCaseHandle
     private final CustomUserDetailsService userDetailsService;
 
     public Authenticate(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserRepository userRepository, PasswordEncoder passwordEncoder, CustomUserDetailsService userDetailsService){
+        register(LogInDto.class, this);
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
-        register(LogInDto.class, this);
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public String handle(@Valid LogInDto dto) {
+    public AuthenticateResponseDto handle(@Valid LogInDto dto) {
         final String email = dto.getEmail();
         Optional<User> optUser = userRepository.findByEmail(email);
         if(optUser.isPresent()){
@@ -53,7 +54,7 @@ public class Authenticate extends ObservablePublisher implements NoUseCaseHandle
             log.error("User with email = {} could not be found!", email);
             throw new SourceNotFoundException("User with email " + email + " could not be found!");
         }
-        return "User with email = " + email + "authenticated successfully !";
+        return new AuthenticateResponseDto("User with email = " + email + "authenticated successfully !");
     }
 
     private void checkPasswords(String rawPassword, String hashedPassword) {
